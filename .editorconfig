@@ -1,0 +1,4 @@
+﻿[*.vb]
+
+# BC40004: El miembro está en conflicto con el miembro del tipo base y se debe declarar como 'Shadows'
+dotnet_diagnostic.BC40004.severity = none

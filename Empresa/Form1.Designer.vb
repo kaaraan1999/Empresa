@@ -53,9 +53,13 @@ Partial Class GestionEmpresa
         Me.lblMenuModificacionTrabajadorDNI = New System.Windows.Forms.Label()
         Me.lblModificacionTrabajador = New System.Windows.Forms.Label()
         Me.DarAltaTrabajador = New System.Windows.Forms.Panel()
-        Me.txtAltaTrabajadorTipo = New System.Windows.Forms.TextBox()
+        Me.CBAltaTrabajadorTipo = New System.Windows.Forms.ComboBox()
+        Me.cbAltaTrabajadorSexo = New System.Windows.Forms.ComboBox()
+        Me.txtAltaTrabajadorUsuario = New System.Windows.Forms.TextBox()
+        Me.lblAltaTrabajadorUsuario = New System.Windows.Forms.Label()
+        Me.txtAltaTrabajadorContraseya = New System.Windows.Forms.TextBox()
+        Me.lblAltaTrabajadorContraseya = New System.Windows.Forms.Label()
         Me.lblAltaTrabajadorTipo = New System.Windows.Forms.Label()
-        Me.txtAltaTrabajadorSexo = New System.Windows.Forms.TextBox()
         Me.lblAltaTrabajadorSexo = New System.Windows.Forms.Label()
         Me.btnAltaTrabajadoresAceptar = New System.Windows.Forms.Button()
         Me.btnAltaTrabajadoresCancelar = New System.Windows.Forms.Button()
@@ -73,6 +77,8 @@ Partial Class GestionEmpresa
         Me.lblAltaTrabajadorNombre = New System.Windows.Forms.Label()
         Me.lblAltaTrabajador = New System.Windows.Forms.Label()
         Me.InformacionTrabajador = New System.Windows.Forms.Panel()
+        Me.txtConsultarTrabajadorAnyosTrabajados = New System.Windows.Forms.TextBox()
+        Me.lblConsultarTrabajadorAnyosTrabajados = New System.Windows.Forms.Label()
         Me.btnConsultarTrabajadorBuscar = New System.Windows.Forms.Button()
         Me.txtConsultarTrabajadorEdad = New System.Windows.Forms.TextBox()
         Me.txtConsultarTrabajadorPass = New System.Windows.Forms.TextBox()
@@ -135,6 +141,7 @@ Partial Class GestionEmpresa
         Me.btnAñadirProveedor = New System.Windows.Forms.Button()
         Me.lblMenuProveedores = New System.Windows.Forms.Label()
         Me.AltaProveedor = New System.Windows.Forms.Panel()
+        Me.CBAltaProveedorTipo = New System.Windows.Forms.ComboBox()
         Me.btnAltaProveedorAceptar = New System.Windows.Forms.Button()
         Me.btnAltaProveedorCancelar = New System.Windows.Forms.Button()
         Me.txtAltaProveedorEmail = New System.Windows.Forms.TextBox()
@@ -143,7 +150,6 @@ Partial Class GestionEmpresa
         Me.lblAltaProveedorEmail = New System.Windows.Forms.Label()
         Me.lblAltaProveedorTelefono = New System.Windows.Forms.Label()
         Me.lblAltaProveedorDireccion = New System.Windows.Forms.Label()
-        Me.txtAltaProveedorTipo = New System.Windows.Forms.TextBox()
         Me.txtAltaProveedorCIF = New System.Windows.Forms.TextBox()
         Me.txtAltaProveedorApellido = New System.Windows.Forms.TextBox()
         Me.txtAltaProveedorNombre = New System.Windows.Forms.TextBox()
@@ -182,6 +188,9 @@ Partial Class GestionEmpresa
         Me.lblModificarProveedorNombreEmpresa = New System.Windows.Forms.Label()
         Me.lblModificarProveedor = New System.Windows.Forms.Label()
         Me.ConsultarProveedor = New System.Windows.Forms.Panel()
+        Me.btnConsultarProveedorBuscar = New System.Windows.Forms.Button()
+        Me.txtConsultarProveedorCIFBusqueda = New System.Windows.Forms.TextBox()
+        Me.lblConsultarProveedorCIFBusqueda = New System.Windows.Forms.Label()
         Me.btnConsultarProveedorCancelar = New System.Windows.Forms.Button()
         Me.txtConsultarProveedorEmail = New System.Windows.Forms.TextBox()
         Me.txtConsultarProveedorTelefono = New System.Windows.Forms.TextBox()
@@ -322,11 +331,6 @@ Partial Class GestionEmpresa
         Me.txtMenuFabricaCIF = New System.Windows.Forms.TextBox()
         Me.btnMenuFabricaCIF = New System.Windows.Forms.Button()
         Me.lblMenuFabrica = New System.Windows.Forms.Label()
-        Me.txtConsultarTrabajadorAnyosTrabajados = New System.Windows.Forms.TextBox()
-        Me.lblConsultarTrabajadorAnyosTrabajados = New System.Windows.Forms.Label()
-        Me.txtConsultarProveedorCIFBusqueda = New System.Windows.Forms.TextBox()
-        Me.lblConsultarProveedorCIFBusqueda = New System.Windows.Forms.Label()
-        Me.btnConsultarProveedorBuscar = New System.Windows.Forms.Button()
         Me.Login.SuspendLayout()
         Me.Menu.SuspendLayout()
         Me.Trabajador.SuspendLayout()
@@ -662,9 +666,13 @@ Partial Class GestionEmpresa
         '
         'DarAltaTrabajador
         '
-        Me.DarAltaTrabajador.Controls.Add(Me.txtAltaTrabajadorTipo)
+        Me.DarAltaTrabajador.Controls.Add(Me.CBAltaTrabajadorTipo)
+        Me.DarAltaTrabajador.Controls.Add(Me.cbAltaTrabajadorSexo)
+        Me.DarAltaTrabajador.Controls.Add(Me.txtAltaTrabajadorUsuario)
+        Me.DarAltaTrabajador.Controls.Add(Me.lblAltaTrabajadorUsuario)
+        Me.DarAltaTrabajador.Controls.Add(Me.txtAltaTrabajadorContraseya)
+        Me.DarAltaTrabajador.Controls.Add(Me.lblAltaTrabajadorContraseya)
         Me.DarAltaTrabajador.Controls.Add(Me.lblAltaTrabajadorTipo)
-        Me.DarAltaTrabajador.Controls.Add(Me.txtAltaTrabajadorSexo)
         Me.DarAltaTrabajador.Controls.Add(Me.lblAltaTrabajadorSexo)
         Me.DarAltaTrabajador.Controls.Add(Me.btnAltaTrabajadoresAceptar)
         Me.DarAltaTrabajador.Controls.Add(Me.btnAltaTrabajadoresCancelar)
@@ -688,13 +696,57 @@ Partial Class GestionEmpresa
         Me.DarAltaTrabajador.Size = New System.Drawing.Size(773, 422)
         Me.DarAltaTrabajador.TabIndex = 7
         '
-        'txtAltaTrabajadorTipo
+        'CBAltaTrabajadorTipo
         '
-        Me.txtAltaTrabajadorTipo.Location = New System.Drawing.Point(251, 309)
-        Me.txtAltaTrabajadorTipo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.txtAltaTrabajadorTipo.Name = "txtAltaTrabajadorTipo"
-        Me.txtAltaTrabajadorTipo.Size = New System.Drawing.Size(183, 22)
-        Me.txtAltaTrabajadorTipo.TabIndex = 20
+        Me.CBAltaTrabajadorTipo.FormattingEnabled = True
+        Me.CBAltaTrabajadorTipo.Items.AddRange(New Object() {"Fijo", "Temporal", "En Practicas"})
+        Me.CBAltaTrabajadorTipo.Location = New System.Drawing.Point(252, 304)
+        Me.CBAltaTrabajadorTipo.Name = "CBAltaTrabajadorTipo"
+        Me.CBAltaTrabajadorTipo.Size = New System.Drawing.Size(140, 24)
+        Me.CBAltaTrabajadorTipo.TabIndex = 26
+        '
+        'cbAltaTrabajadorSexo
+        '
+        Me.cbAltaTrabajadorSexo.FormattingEnabled = True
+        Me.cbAltaTrabajadorSexo.Items.AddRange(New Object() {"M", "F"})
+        Me.cbAltaTrabajadorSexo.Location = New System.Drawing.Point(675, 262)
+        Me.cbAltaTrabajadorSexo.Name = "cbAltaTrabajadorSexo"
+        Me.cbAltaTrabajadorSexo.Size = New System.Drawing.Size(74, 24)
+        Me.cbAltaTrabajadorSexo.TabIndex = 25
+        '
+        'txtAltaTrabajadorUsuario
+        '
+        Me.txtAltaTrabajadorUsuario.Location = New System.Drawing.Point(565, 216)
+        Me.txtAltaTrabajadorUsuario.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.txtAltaTrabajadorUsuario.Name = "txtAltaTrabajadorUsuario"
+        Me.txtAltaTrabajadorUsuario.Size = New System.Drawing.Size(183, 22)
+        Me.txtAltaTrabajadorUsuario.TabIndex = 24
+        '
+        'lblAltaTrabajadorUsuario
+        '
+        Me.lblAltaTrabajadorUsuario.AutoSize = True
+        Me.lblAltaTrabajadorUsuario.Location = New System.Drawing.Point(453, 219)
+        Me.lblAltaTrabajadorUsuario.Name = "lblAltaTrabajadorUsuario"
+        Me.lblAltaTrabajadorUsuario.Size = New System.Drawing.Size(57, 17)
+        Me.lblAltaTrabajadorUsuario.TabIndex = 23
+        Me.lblAltaTrabajadorUsuario.Text = "Usuario"
+        '
+        'txtAltaTrabajadorContraseya
+        '
+        Me.txtAltaTrabajadorContraseya.Location = New System.Drawing.Point(565, 304)
+        Me.txtAltaTrabajadorContraseya.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.txtAltaTrabajadorContraseya.Name = "txtAltaTrabajadorContraseya"
+        Me.txtAltaTrabajadorContraseya.Size = New System.Drawing.Size(183, 22)
+        Me.txtAltaTrabajadorContraseya.TabIndex = 22
+        '
+        'lblAltaTrabajadorContraseya
+        '
+        Me.lblAltaTrabajadorContraseya.AutoSize = True
+        Me.lblAltaTrabajadorContraseya.Location = New System.Drawing.Point(453, 307)
+        Me.lblAltaTrabajadorContraseya.Name = "lblAltaTrabajadorContraseya"
+        Me.lblAltaTrabajadorContraseya.Size = New System.Drawing.Size(81, 17)
+        Me.lblAltaTrabajadorContraseya.TabIndex = 21
+        Me.lblAltaTrabajadorContraseya.Text = "Contraseña"
         '
         'lblAltaTrabajadorTipo
         '
@@ -705,18 +757,10 @@ Partial Class GestionEmpresa
         Me.lblAltaTrabajadorTipo.TabIndex = 19
         Me.lblAltaTrabajadorTipo.Text = "Tipo Trabajador"
         '
-        'txtAltaTrabajadorSexo
-        '
-        Me.txtAltaTrabajadorSexo.Location = New System.Drawing.Point(565, 217)
-        Me.txtAltaTrabajadorSexo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.txtAltaTrabajadorSexo.Name = "txtAltaTrabajadorSexo"
-        Me.txtAltaTrabajadorSexo.Size = New System.Drawing.Size(183, 22)
-        Me.txtAltaTrabajadorSexo.TabIndex = 18
-        '
         'lblAltaTrabajadorSexo
         '
         Me.lblAltaTrabajadorSexo.AutoSize = True
-        Me.lblAltaTrabajadorSexo.Location = New System.Drawing.Point(453, 220)
+        Me.lblAltaTrabajadorSexo.Location = New System.Drawing.Point(626, 268)
         Me.lblAltaTrabajadorSexo.Name = "lblAltaTrabajadorSexo"
         Me.lblAltaTrabajadorSexo.Size = New System.Drawing.Size(39, 17)
         Me.lblAltaTrabajadorSexo.TabIndex = 17
@@ -724,7 +768,7 @@ Partial Class GestionEmpresa
         '
         'btnAltaTrabajadoresAceptar
         '
-        Me.btnAltaTrabajadoresAceptar.Location = New System.Drawing.Point(499, 373)
+        Me.btnAltaTrabajadoresAceptar.Location = New System.Drawing.Point(507, 363)
         Me.btnAltaTrabajadoresAceptar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnAltaTrabajadoresAceptar.Name = "btnAltaTrabajadoresAceptar"
         Me.btnAltaTrabajadoresAceptar.Size = New System.Drawing.Size(140, 38)
@@ -734,7 +778,7 @@ Partial Class GestionEmpresa
         '
         'btnAltaTrabajadoresCancelar
         '
-        Me.btnAltaTrabajadoresCancelar.Location = New System.Drawing.Point(160, 371)
+        Me.btnAltaTrabajadoresCancelar.Location = New System.Drawing.Point(159, 362)
         Me.btnAltaTrabajadoresCancelar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnAltaTrabajadoresCancelar.Name = "btnAltaTrabajadoresCancelar"
         Me.btnAltaTrabajadoresCancelar.Size = New System.Drawing.Size(140, 38)
@@ -887,6 +931,23 @@ Partial Class GestionEmpresa
         Me.InformacionTrabajador.Name = "InformacionTrabajador"
         Me.InformacionTrabajador.Size = New System.Drawing.Size(773, 422)
         Me.InformacionTrabajador.TabIndex = 5
+        '
+        'txtConsultarTrabajadorAnyosTrabajados
+        '
+        Me.txtConsultarTrabajadorAnyosTrabajados.Location = New System.Drawing.Point(546, 134)
+        Me.txtConsultarTrabajadorAnyosTrabajados.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.txtConsultarTrabajadorAnyosTrabajados.Name = "txtConsultarTrabajadorAnyosTrabajados"
+        Me.txtConsultarTrabajadorAnyosTrabajados.Size = New System.Drawing.Size(183, 22)
+        Me.txtConsultarTrabajadorAnyosTrabajados.TabIndex = 45
+        '
+        'lblConsultarTrabajadorAnyosTrabajados
+        '
+        Me.lblConsultarTrabajadorAnyosTrabajados.AutoSize = True
+        Me.lblConsultarTrabajadorAnyosTrabajados.Location = New System.Drawing.Point(425, 134)
+        Me.lblConsultarTrabajadorAnyosTrabajados.Name = "lblConsultarTrabajadorAnyosTrabajados"
+        Me.lblConsultarTrabajadorAnyosTrabajados.Size = New System.Drawing.Size(116, 17)
+        Me.lblConsultarTrabajadorAnyosTrabajados.TabIndex = 44
+        Me.lblConsultarTrabajadorAnyosTrabajados.Text = "Años Trabajados"
         '
         'btnConsultarTrabajadorBuscar
         '
@@ -1341,7 +1402,7 @@ Partial Class GestionEmpresa
         Me.lblMenuModificarTrabajadorEspecialidad.AutoSize = True
         Me.lblMenuModificarTrabajadorEspecialidad.Location = New System.Drawing.Point(45, 308)
         Me.lblMenuModificarTrabajadorEspecialidad.Name = "lblMenuModificarTrabajadorEspecialidad"
-        Me.lblMenuModificarTrabajadorEspecialidad.Size = New System.Drawing.Size(138, 21)
+        Me.lblMenuModificarTrabajadorEspecialidad.Size = New System.Drawing.Size(110, 17)
         Me.lblMenuModificarTrabajadorEspecialidad.TabIndex = 24
         Me.lblMenuModificarTrabajadorEspecialidad.Text = "Tipo Trabajador"
         '
@@ -1472,6 +1533,7 @@ Partial Class GestionEmpresa
         '
         'AltaProveedor
         '
+        Me.AltaProveedor.Controls.Add(Me.CBAltaProveedorTipo)
         Me.AltaProveedor.Controls.Add(Me.btnAltaProveedorAceptar)
         Me.AltaProveedor.Controls.Add(Me.btnAltaProveedorCancelar)
         Me.AltaProveedor.Controls.Add(Me.txtAltaProveedorEmail)
@@ -1480,7 +1542,6 @@ Partial Class GestionEmpresa
         Me.AltaProveedor.Controls.Add(Me.lblAltaProveedorEmail)
         Me.AltaProveedor.Controls.Add(Me.lblAltaProveedorTelefono)
         Me.AltaProveedor.Controls.Add(Me.lblAltaProveedorDireccion)
-        Me.AltaProveedor.Controls.Add(Me.txtAltaProveedorTipo)
         Me.AltaProveedor.Controls.Add(Me.txtAltaProveedorCIF)
         Me.AltaProveedor.Controls.Add(Me.txtAltaProveedorApellido)
         Me.AltaProveedor.Controls.Add(Me.txtAltaProveedorNombre)
@@ -1497,6 +1558,15 @@ Partial Class GestionEmpresa
         Me.AltaProveedor.Name = "AltaProveedor"
         Me.AltaProveedor.Size = New System.Drawing.Size(773, 422)
         Me.AltaProveedor.TabIndex = 7
+        '
+        'CBAltaProveedorTipo
+        '
+        Me.CBAltaProveedorTipo.FormattingEnabled = True
+        Me.CBAltaProveedorTipo.Items.AddRange(New Object() {"Limpieza", "Electricidad", "Carpinteria", "Albañileria", "Fontaneria"})
+        Me.CBAltaProveedorTipo.Location = New System.Drawing.Point(587, 257)
+        Me.CBAltaProveedorTipo.Name = "CBAltaProveedorTipo"
+        Me.CBAltaProveedorTipo.Size = New System.Drawing.Size(167, 24)
+        Me.CBAltaProveedorTipo.TabIndex = 19
         '
         'btnAltaProveedorAceptar
         '
@@ -1520,7 +1590,7 @@ Partial Class GestionEmpresa
         '
         'txtAltaProveedorEmail
         '
-        Me.txtAltaProveedorEmail.Location = New System.Drawing.Point(547, 246)
+        Me.txtAltaProveedorEmail.Location = New System.Drawing.Point(587, 212)
         Me.txtAltaProveedorEmail.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorEmail.Name = "txtAltaProveedorEmail"
         Me.txtAltaProveedorEmail.Size = New System.Drawing.Size(167, 22)
@@ -1528,7 +1598,7 @@ Partial Class GestionEmpresa
         '
         'txtAltaProveedorTelefono
         '
-        Me.txtAltaProveedorTelefono.Location = New System.Drawing.Point(547, 208)
+        Me.txtAltaProveedorTelefono.Location = New System.Drawing.Point(587, 174)
         Me.txtAltaProveedorTelefono.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorTelefono.Name = "txtAltaProveedorTelefono"
         Me.txtAltaProveedorTelefono.Size = New System.Drawing.Size(167, 22)
@@ -1536,7 +1606,7 @@ Partial Class GestionEmpresa
         '
         'txtAltaProveedorDireccion
         '
-        Me.txtAltaProveedorDireccion.Location = New System.Drawing.Point(547, 162)
+        Me.txtAltaProveedorDireccion.Location = New System.Drawing.Point(587, 128)
         Me.txtAltaProveedorDireccion.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorDireccion.Name = "txtAltaProveedorDireccion"
         Me.txtAltaProveedorDireccion.Size = New System.Drawing.Size(167, 22)
@@ -1545,7 +1615,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorEmail
         '
         Me.lblAltaProveedorEmail.AutoSize = True
-        Me.lblAltaProveedorEmail.Location = New System.Drawing.Point(468, 247)
+        Me.lblAltaProveedorEmail.Location = New System.Drawing.Point(428, 220)
         Me.lblAltaProveedorEmail.Name = "lblAltaProveedorEmail"
         Me.lblAltaProveedorEmail.Size = New System.Drawing.Size(42, 17)
         Me.lblAltaProveedorEmail.TabIndex = 13
@@ -1554,7 +1624,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorTelefono
         '
         Me.lblAltaProveedorTelefono.AutoSize = True
-        Me.lblAltaProveedorTelefono.Location = New System.Drawing.Point(468, 209)
+        Me.lblAltaProveedorTelefono.Location = New System.Drawing.Point(428, 182)
         Me.lblAltaProveedorTelefono.Name = "lblAltaProveedorTelefono"
         Me.lblAltaProveedorTelefono.Size = New System.Drawing.Size(64, 17)
         Me.lblAltaProveedorTelefono.TabIndex = 12
@@ -1563,23 +1633,15 @@ Partial Class GestionEmpresa
         'lblAltaProveedorDireccion
         '
         Me.lblAltaProveedorDireccion.AutoSize = True
-        Me.lblAltaProveedorDireccion.Location = New System.Drawing.Point(468, 165)
+        Me.lblAltaProveedorDireccion.Location = New System.Drawing.Point(428, 138)
         Me.lblAltaProveedorDireccion.Name = "lblAltaProveedorDireccion"
         Me.lblAltaProveedorDireccion.Size = New System.Drawing.Size(67, 17)
         Me.lblAltaProveedorDireccion.TabIndex = 11
         Me.lblAltaProveedorDireccion.Text = "Dirección"
         '
-        'txtAltaProveedorTipo
-        '
-        Me.txtAltaProveedorTipo.Location = New System.Drawing.Point(252, 286)
-        Me.txtAltaProveedorTipo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.txtAltaProveedorTipo.Name = "txtAltaProveedorTipo"
-        Me.txtAltaProveedorTipo.Size = New System.Drawing.Size(167, 22)
-        Me.txtAltaProveedorTipo.TabIndex = 10
-        '
         'txtAltaProveedorCIF
         '
-        Me.txtAltaProveedorCIF.Location = New System.Drawing.Point(252, 251)
+        Me.txtAltaProveedorCIF.Location = New System.Drawing.Point(213, 251)
         Me.txtAltaProveedorCIF.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorCIF.Name = "txtAltaProveedorCIF"
         Me.txtAltaProveedorCIF.Size = New System.Drawing.Size(167, 22)
@@ -1587,7 +1649,7 @@ Partial Class GestionEmpresa
         '
         'txtAltaProveedorApellido
         '
-        Me.txtAltaProveedorApellido.Location = New System.Drawing.Point(252, 217)
+        Me.txtAltaProveedorApellido.Location = New System.Drawing.Point(213, 217)
         Me.txtAltaProveedorApellido.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorApellido.Name = "txtAltaProveedorApellido"
         Me.txtAltaProveedorApellido.Size = New System.Drawing.Size(167, 22)
@@ -1595,7 +1657,7 @@ Partial Class GestionEmpresa
         '
         'txtAltaProveedorNombre
         '
-        Me.txtAltaProveedorNombre.Location = New System.Drawing.Point(252, 178)
+        Me.txtAltaProveedorNombre.Location = New System.Drawing.Point(213, 178)
         Me.txtAltaProveedorNombre.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorNombre.Name = "txtAltaProveedorNombre"
         Me.txtAltaProveedorNombre.Size = New System.Drawing.Size(167, 22)
@@ -1603,7 +1665,7 @@ Partial Class GestionEmpresa
         '
         'txtAltaProveedorNombreEmpresa
         '
-        Me.txtAltaProveedorNombreEmpresa.Location = New System.Drawing.Point(252, 135)
+        Me.txtAltaProveedorNombreEmpresa.Location = New System.Drawing.Point(213, 135)
         Me.txtAltaProveedorNombreEmpresa.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAltaProveedorNombreEmpresa.Name = "txtAltaProveedorNombreEmpresa"
         Me.txtAltaProveedorNombreEmpresa.Size = New System.Drawing.Size(167, 22)
@@ -1612,7 +1674,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorApellido
         '
         Me.lblAltaProveedorApellido.AutoSize = True
-        Me.lblAltaProveedorApellido.Location = New System.Drawing.Point(91, 220)
+        Me.lblAltaProveedorApellido.Location = New System.Drawing.Point(52, 220)
         Me.lblAltaProveedorApellido.Name = "lblAltaProveedorApellido"
         Me.lblAltaProveedorApellido.Size = New System.Drawing.Size(58, 17)
         Me.lblAltaProveedorApellido.TabIndex = 5
@@ -1621,7 +1683,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorTipo
         '
         Me.lblAltaProveedorTipo.AutoSize = True
-        Me.lblAltaProveedorTipo.Location = New System.Drawing.Point(91, 288)
+        Me.lblAltaProveedorTipo.Location = New System.Drawing.Point(427, 256)
         Me.lblAltaProveedorTipo.Name = "lblAltaProveedorTipo"
         Me.lblAltaProveedorTipo.Size = New System.Drawing.Size(126, 17)
         Me.lblAltaProveedorTipo.TabIndex = 4
@@ -1630,7 +1692,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorCIF
         '
         Me.lblAltaProveedorCIF.AutoSize = True
-        Me.lblAltaProveedorCIF.Location = New System.Drawing.Point(91, 252)
+        Me.lblAltaProveedorCIF.Location = New System.Drawing.Point(52, 252)
         Me.lblAltaProveedorCIF.Name = "lblAltaProveedorCIF"
         Me.lblAltaProveedorCIF.Size = New System.Drawing.Size(28, 17)
         Me.lblAltaProveedorCIF.TabIndex = 3
@@ -1639,7 +1701,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorNombre
         '
         Me.lblAltaProveedorNombre.AutoSize = True
-        Me.lblAltaProveedorNombre.Location = New System.Drawing.Point(91, 182)
+        Me.lblAltaProveedorNombre.Location = New System.Drawing.Point(52, 182)
         Me.lblAltaProveedorNombre.Name = "lblAltaProveedorNombre"
         Me.lblAltaProveedorNombre.Size = New System.Drawing.Size(62, 17)
         Me.lblAltaProveedorNombre.TabIndex = 2
@@ -1648,7 +1710,7 @@ Partial Class GestionEmpresa
         'lblAltaProveedorNombreEmpresa
         '
         Me.lblAltaProveedorNombreEmpresa.AutoSize = True
-        Me.lblAltaProveedorNombreEmpresa.Location = New System.Drawing.Point(91, 138)
+        Me.lblAltaProveedorNombreEmpresa.Location = New System.Drawing.Point(52, 138)
         Me.lblAltaProveedorNombreEmpresa.Name = "lblAltaProveedorNombreEmpresa"
         Me.lblAltaProveedorNombreEmpresa.Size = New System.Drawing.Size(153, 17)
         Me.lblAltaProveedorNombreEmpresa.TabIndex = 1
@@ -1961,6 +2023,34 @@ Partial Class GestionEmpresa
         Me.ConsultarProveedor.Name = "ConsultarProveedor"
         Me.ConsultarProveedor.Size = New System.Drawing.Size(773, 422)
         Me.ConsultarProveedor.TabIndex = 7
+        '
+        'btnConsultarProveedorBuscar
+        '
+        Me.btnConsultarProveedorBuscar.Location = New System.Drawing.Point(576, 99)
+        Me.btnConsultarProveedorBuscar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btnConsultarProveedorBuscar.Name = "btnConsultarProveedorBuscar"
+        Me.btnConsultarProveedorBuscar.Size = New System.Drawing.Size(131, 39)
+        Me.btnConsultarProveedorBuscar.TabIndex = 58
+        Me.btnConsultarProveedorBuscar.Text = "Buscar"
+        Me.btnConsultarProveedorBuscar.UseVisualStyleBackColor = True
+        '
+        'txtConsultarProveedorCIFBusqueda
+        '
+        Me.txtConsultarProveedorCIFBusqueda.Location = New System.Drawing.Point(391, 107)
+        Me.txtConsultarProveedorCIFBusqueda.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.txtConsultarProveedorCIFBusqueda.Name = "txtConsultarProveedorCIFBusqueda"
+        Me.txtConsultarProveedorCIFBusqueda.Size = New System.Drawing.Size(167, 22)
+        Me.txtConsultarProveedorCIFBusqueda.TabIndex = 57
+        '
+        'lblConsultarProveedorCIFBusqueda
+        '
+        Me.lblConsultarProveedorCIFBusqueda.AutoSize = True
+        Me.lblConsultarProveedorCIFBusqueda.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblConsultarProveedorCIFBusqueda.Location = New System.Drawing.Point(94, 107)
+        Me.lblConsultarProveedorCIFBusqueda.Name = "lblConsultarProveedorCIFBusqueda"
+        Me.lblConsultarProveedorCIFBusqueda.Size = New System.Drawing.Size(250, 20)
+        Me.lblConsultarProveedorCIFBusqueda.TabIndex = 56
+        Me.lblConsultarProveedorCIFBusqueda.Text = "Inserte el CIF de la Empresa"
         '
         'btnConsultarProveedorCancelar
         '
@@ -3391,57 +3481,11 @@ Partial Class GestionEmpresa
         Me.lblMenuFabrica.TabIndex = 1
         Me.lblMenuFabrica.Text = "Menú Fabrica"
         '
-        'txtConsultarTrabajadorAnyosTrabajados
-        '
-        Me.txtConsultarTrabajadorAnyosTrabajados.Location = New System.Drawing.Point(546, 134)
-        Me.txtConsultarTrabajadorAnyosTrabajados.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.txtConsultarTrabajadorAnyosTrabajados.Name = "txtConsultarTrabajadorAnyosTrabajados"
-        Me.txtConsultarTrabajadorAnyosTrabajados.Size = New System.Drawing.Size(183, 22)
-        Me.txtConsultarTrabajadorAnyosTrabajados.TabIndex = 45
-        '
-        'lblConsultarTrabajadorAnyosTrabajados
-        '
-        Me.lblConsultarTrabajadorAnyosTrabajados.AutoSize = True
-        Me.lblConsultarTrabajadorAnyosTrabajados.Location = New System.Drawing.Point(425, 134)
-        Me.lblConsultarTrabajadorAnyosTrabajados.Name = "lblConsultarTrabajadorAnyosTrabajados"
-        Me.lblConsultarTrabajadorAnyosTrabajados.Size = New System.Drawing.Size(145, 21)
-        Me.lblConsultarTrabajadorAnyosTrabajados.TabIndex = 44
-        Me.lblConsultarTrabajadorAnyosTrabajados.Text = "Años Trabajados"
-        '
-        'txtConsultarProveedorCIFBusqueda
-        '
-        Me.txtConsultarProveedorCIFBusqueda.Location = New System.Drawing.Point(391, 107)
-        Me.txtConsultarProveedorCIFBusqueda.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.txtConsultarProveedorCIFBusqueda.Name = "txtConsultarProveedorCIFBusqueda"
-        Me.txtConsultarProveedorCIFBusqueda.Size = New System.Drawing.Size(167, 22)
-        Me.txtConsultarProveedorCIFBusqueda.TabIndex = 57
-        '
-        'lblConsultarProveedorCIFBusqueda
-        '
-        Me.lblConsultarProveedorCIFBusqueda.AutoSize = True
-        Me.lblConsultarProveedorCIFBusqueda.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblConsultarProveedorCIFBusqueda.Location = New System.Drawing.Point(125, 109)
-        Me.lblConsultarProveedorCIFBusqueda.Name = "lblConsultarProveedorCIFBusqueda"
-        Me.lblConsultarProveedorCIFBusqueda.Size = New System.Drawing.Size(250, 20)
-        Me.lblConsultarProveedorCIFBusqueda.TabIndex = 56
-        Me.lblConsultarProveedorCIFBusqueda.Text = "Inserte el CIF de la Empresa"
-        '
-        'btnConsultarProveedorBuscar
-        '
-        Me.btnConsultarProveedorBuscar.Location = New System.Drawing.Point(576, 99)
-        Me.btnConsultarProveedorBuscar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.btnConsultarProveedorBuscar.Name = "btnConsultarProveedorBuscar"
-        Me.btnConsultarProveedorBuscar.Size = New System.Drawing.Size(131, 39)
-        Me.btnConsultarProveedorBuscar.TabIndex = 58
-        Me.btnConsultarProveedorBuscar.Text = "Buscar"
-        Me.btnConsultarProveedorBuscar.UseVisualStyleBackColor = True
-        '
         'GestionEmpresa
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(773, 422)
-        Me.Controls.Add(Me.MenuProveedores)
         Me.Controls.Add(Me.Login)
         Me.Controls.Add(Me.Menu)
         Me.Controls.Add(Me.Trabajador)
@@ -3450,6 +3494,7 @@ Partial Class GestionEmpresa
         Me.Controls.Add(Me.MenuModificarTrabajador)
         Me.Controls.Add(Me.ModificarTrabajador)
         Me.Controls.Add(Me.BajaTrabajador)
+        Me.Controls.Add(Me.MenuProveedores)
         Me.Controls.Add(Me.AltaProveedor)
         Me.Controls.Add(Me.ConsultarProveedor)
         Me.Controls.Add(Me.BusquedaModificarProveedor)
@@ -3548,7 +3593,6 @@ Partial Class GestionEmpresa
     Friend WithEvents lblAltaTrabajadorEmail As Label
     Friend WithEvents btnAltaTrabajadoresAceptar As Button
     Friend WithEvents btnAltaTrabajadoresCancelar As Button
-    Friend WithEvents txtAltaTrabajadorSexo As TextBox
     Friend WithEvents lblAltaTrabajadorSexo As Label
     Friend WithEvents BajaTrabajador As Panel
     Friend WithEvents lblMenuBajaTrabajador As Label
@@ -3621,7 +3665,6 @@ Partial Class GestionEmpresa
     Friend WithEvents lblAltaProveedorEmail As Label
     Friend WithEvents lblAltaProveedorTelefono As Label
     Friend WithEvents lblAltaProveedorDireccion As Label
-    Friend WithEvents txtAltaProveedorTipo As TextBox
     Friend WithEvents txtAltaProveedorCIF As TextBox
     Friend WithEvents txtAltaProveedorApellido As TextBox
     Friend WithEvents txtAltaProveedorNombre As TextBox
@@ -3786,7 +3829,6 @@ Partial Class GestionEmpresa
     Friend WithEvents lblMenuFabricaDireccion As Label
     Friend WithEvents txtMenuFabricaDireccion As TextBox
     Friend WithEvents btnMenuFabricaSalir As Button
-    Friend WithEvents txtAltaTrabajadorTipo As TextBox
     Friend WithEvents lblAltaTrabajadorTipo As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents txtMenuModificarTrabajadorAnyosTrabajados As TextBox
@@ -3814,4 +3856,11 @@ Partial Class GestionEmpresa
     Friend WithEvents btnConsultarProveedorBuscar As Button
     Friend WithEvents txtConsultarProveedorCIFBusqueda As TextBox
     Friend WithEvents lblConsultarProveedorCIFBusqueda As Label
+    Friend WithEvents txtAltaTrabajadorContraseya As TextBox
+    Friend WithEvents lblAltaTrabajadorContraseya As Label
+    Friend WithEvents txtAltaTrabajadorUsuario As TextBox
+    Friend WithEvents lblAltaTrabajadorUsuario As Label
+    Friend WithEvents cbAltaTrabajadorSexo As ComboBox
+    Friend WithEvents CBAltaTrabajadorTipo As ComboBox
+    Friend WithEvents CBAltaProveedorTipo As ComboBox
 End Class

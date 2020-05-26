@@ -36,6 +36,8 @@ Public Class GestionEmpresa
                                     esValido = 3
                                 ElseIf infoUsuario("Permiso") = 4 Then
                                     esValido = 4
+                                ElseIf infoUsuario("Permiso") = 99 Then
+                                    esValido = 99
                                 End If
                             End If
                         End If
@@ -116,21 +118,12 @@ Public Class GestionEmpresa
         Dim insertado As Integer
         Dim todaysdate As Date = Now
         Dim anyosTrabajados = 0
-        Dim tipo = 0
         Dim edad As Integer = todaysdate.Year - fechaNac.Year
         Dim sql As String = "INSERT INTO TRABAJADORES (IDTIPOTRABAJADOR,NOMBRE,APELLIDO,EDAD,ANYOSTRABAJADOS,DNI,TELEFONO,EMAIL,SEXO) VALUES (@idtipotrabajador,@nombre,@apellido,@edad,@anyostrabajados,@dni,@tel,@email,@sexo)"
-        If tipoTrabajador.ToLower.Equals("fijo") Then
-            tipo = 1
-        ElseIf tipoTrabajador.ToLower.Equals("temporal") Then
-            tipo = 2
-        ElseIf tipoTrabajador.ToLower.Equals("en practicas") Then
-            tipo = 3
-        End If
-
         Try
             Using conn As New SQLiteConnection(connectionString.ToString)
                 Using cmd As New SQLiteCommand(conn)
-                    cmd.Parameters.AddWithValue("@idtipotrabajador", tipo)
+                    cmd.Parameters.AddWithValue("@idtipotrabajador", tipoTrabajador)
                     cmd.Parameters.AddWithValue("@nombre", nombre)
                     cmd.Parameters.AddWithValue("@apellido", apellido)
                     cmd.Parameters.AddWithValue("@edad", edad)
@@ -210,25 +203,14 @@ Public Class GestionEmpresa
     End Function
 
     'Insertar proveedor
-    Private Function InsertarProveedor(nombreEmpresa As String, nombre As String, apellido As String, cif As String, tipoProveedor As String, direccion As String, telefono As String, email As String) As Boolean
+    Private Function InsertarProveedor(nombreEmpresa As String, nombre As String, apellido As String, cif As String, tipoProveedor As Integer, direccion As String, telefono As String, email As String) As Boolean
         Dim insertado As Boolean = False
-        Dim idtipoproveedor As Integer
-        If tipoProveedor.ToLower.Equals("limpieza") Then
-            idtipoproveedor = 1
-        ElseIf tipoProveedor.ToLower.Equals("electricidad") Then
-            idtipoproveedor = 2
-        ElseIf tipoProveedor.ToLower.Equals("carpinteria") Then
-            idtipoproveedor = 3
-        ElseIf tipoProveedor.ToLower.Equals("albañileria") Then
-            idtipoproveedor = 4
-        ElseIf tipoProveedor.ToLower.Equals("fontaneria") Then
-            idtipoproveedor = 5
-        End If
+        tipoProveedor = tipoProveedor + 1
         Dim sql As String = "INSERT INTO PROVEEDORES (IDTIPOPROVEEDOR,NOMBRE,NOMBREEMPRESA,APELLIDO,DNI,DIRECCION,TELEFONO,EMAIL) VALUES (@idtipoproveedor,@nombre,@nombreempresa,@apellido,@dni,@direccion,@telefono,@email)"
         Try
             Using conn As New SQLiteConnection(connectionString.ToString)
                 Using cmd As New SQLiteCommand(conn)
-                    cmd.Parameters.AddWithValue("@idtipoproveedor", idtipoproveedor)
+                    cmd.Parameters.AddWithValue("@idtipoproveedor", tipoProveedor)
                     cmd.Parameters.AddWithValue("@nombre", nombre)
                     cmd.Parameters.AddWithValue("@nombreempresa", nombreEmpresa)
                     cmd.Parameters.AddWithValue("@apellido", apellido)
@@ -894,6 +876,33 @@ Public Class GestionEmpresa
         Return existe
     End Function
 
+    'Funcion insertar Usuario y contraseña
+    Private Function insertarUserPass(usuario As String, pass As String, idtrabajador As Integer) As Boolean
+        Dim idServicios = False
+        Dim permiso = 99
+        Dim sql As String = "INSERT INTO USUARIOS (IDTrabajador,Usuario,Pass,Permiso) VALUES (@idtrabajador,@usuario,@contrasenya,@permiso)"
+        Try
+            Using conn As New SQLiteConnection(connectionString.ToString)
+                Using cmd As New SQLiteCommand(conn)
+                    cmd.Parameters.AddWithValue("@idtrabajador", idtrabajador)
+                    cmd.Parameters.AddWithValue("@usuario", usuario)
+                    cmd.Parameters.AddWithValue("@contrasenya", pass)
+                    cmd.Parameters.AddWithValue("@permiso", permiso)
+                    cmd.CommandText = sql
+                    conn.Open()
+                    Dim ressadded As Integer = cmd.ExecuteNonQuery()
+                    If ressadded > 0 Then
+                        idServicios = True
+                    End If
+                    conn.Close()
+                End Using
+            End Using
+        Catch ex As Exception
+
+        End Try
+        Return idServicios
+    End Function
+
     Private Sub btnAcceder_Click(sender As Object, e As EventArgs) Handles btnAcceder.Click
         Dim validar = ValidarUsuario(txtUsuario.Text.Trim, txtPass.Text.Trim)
         permisos = ValidarUsuario(txtUsuario.Text.Trim, txtPass.Text.Trim)
@@ -1013,11 +1022,17 @@ Public Class GestionEmpresa
                 MenuFabrica.Visible = True
                 txtUsuario.Clear()
                 txtPass.Clear()
+            ElseIf validar = 99 Then
+                MsgBox("Pida los permisos al admin mandando un correo a admin@admin.com")
             End If
-
         Else
             MsgBox("Error, usuario incorrecto")
         End If
+        If validar = 99 Then
+            txtUsuario.Clear()
+            txtPass.Clear()
+        End If
+        txtPass.Clear()
     End Sub
 
     Private Sub btnTrabajadores_Click(sender As Object, e As EventArgs) Handles btnTrabajadores.Click
@@ -1064,6 +1079,8 @@ Public Class GestionEmpresa
         ContratacionesEnCurso.Visible = False
         CancelarContratacion.Visible = False
         MenuFabrica.Visible = False
+        CBAltaTrabajadorTipo.SelectedIndex = 0
+        cbAltaTrabajadorSexo.SelectedIndex = 0
     End Sub
 
     Private Sub btnConsultarTrabajador_Click(sender As Object, e As EventArgs) Handles btnConsultarTrabajador.Click
@@ -1208,51 +1225,59 @@ Public Class GestionEmpresa
     End Sub
 
     Private Sub btnAltaTrabajadoresAceptar_Click(sender As Object, e As EventArgs) Handles btnAltaTrabajadoresAceptar.Click
+        Dim sexoSeleccionado As String
+        If cbAltaTrabajadorSexo.SelectedIndex = 0 Then
+            sexoSeleccionado = "m"
+            MsgBox("Seleccionado masculino")
+        ElseIf cbAltaTrabajadorSexo.SelectedIndex = 1 Then
+            sexoSeleccionado = "f"
+            MsgBox("Seleccionado femenino")
+        End If
         Dim nombre = txtAltaTrabajadorNombre.Text.Trim
         Dim apellido = txtAltaTrabajadorApellido.Text.Trim
         Dim DNI = txtAltaTrabajadorDNI.Text.Trim
         Dim email = txtAltaTrabajadorEmail.Text.Trim
         Dim tel = txtAltaTrabajadorTel.Text.Trim
-        Dim sexo = txtAltaTrabajadorSexo.Text.Trim
+        Dim sexo = sexoSeleccionado
         Dim fechaNac = DateAltaTrabajadorNacimiento.Value
-        Dim tipoTrabajador = txtAltaTrabajadorTipo.Text.Trim
         Dim todaysdate As Date = Now
 
-
-        If nombre.Equals("") Or apellido.Equals("") Or DNI.Equals("") Or email.Equals("") Or tel.Equals("") Or tipoTrabajador.Equals("") Or sexo.Equals("") Then
+        If nombre.Equals("") Or apellido.Equals("") Or DNI.Equals("") Or email.Equals("") Or tel.Equals("") Or sexo.Equals("") Then
             MsgBox("Error, hay algún campo no rellenado. Compruebe todos los campos.")
         Else
-            If Insertar(nombre, apellido, DNI, email, tel, fechaNac, tipoTrabajador, sexo) = True Then
-                MsgBox("Se ha insertado el trabajador correctamente")
-                Login.Visible = False
-                Menu.Visible = False
-                Trabajador.Visible = True
-                MenuModificarTrabajador.Visible = False
-                DarAltaTrabajador.Visible = False
-                InformacionTrabajador.Visible = False
-                ModificarTrabajador.Visible = False
-                BajaTrabajador.Visible = False
-                MenuProveedores.Visible = False
-                AltaProveedor.Visible = False
-                BusquedaModificarProveedor.Visible = False
-                ModificarProveedor.Visible = False
-                ConsultarProveedor.Visible = False
-                BajaProveedor.Visible = False
-                MenuClientes.Visible = False
-                ClientesAtendidos.Visible = False
-                NuevaContratacion.Visible = False
-                ContratacionesEnCurso.Visible = False
-                CancelarContratacion.Visible = False
-                MenuFabrica.Visible = False
-
-                txtAltaTrabajadorNombre.Clear()
-                txtAltaTrabajadorApellido.Clear()
-                txtAltaTrabajadorEmail.Clear()
-                txtAltaTrabajadorTel.Clear()
-                txtAltaTrabajadorSexo.Clear()
-                txtAltaTrabajadorTipo.Clear()
-                txtAltaTrabajadorDNI.Clear()
-                DateAltaTrabajadorNacimiento.ResetText()
+            If Insertar(nombre, apellido, DNI, email, tel, fechaNac, (CBAltaTrabajadorTipo.SelectedIndex + 1), sexo) = True Then
+                If insertarUserPass(txtAltaTrabajadorUsuario.Text, txtAltaTrabajadorContraseya.Text, BuscarIdTrabajador(nombre)) = True Then
+                    MsgBox("Se ha insertado el trabajador correctamente")
+                    Login.Visible = False
+                    Menu.Visible = False
+                    Trabajador.Visible = True
+                    MenuModificarTrabajador.Visible = False
+                    DarAltaTrabajador.Visible = False
+                    InformacionTrabajador.Visible = False
+                    ModificarTrabajador.Visible = False
+                    BajaTrabajador.Visible = False
+                    MenuProveedores.Visible = False
+                    AltaProveedor.Visible = False
+                    BusquedaModificarProveedor.Visible = False
+                    ModificarProveedor.Visible = False
+                    ConsultarProveedor.Visible = False
+                    BajaProveedor.Visible = False
+                    MenuClientes.Visible = False
+                    ClientesAtendidos.Visible = False
+                    NuevaContratacion.Visible = False
+                    ContratacionesEnCurso.Visible = False
+                    CancelarContratacion.Visible = False
+                    MenuFabrica.Visible = False
+                    txtAltaTrabajadorNombre.Clear()
+                    txtAltaTrabajadorApellido.Clear()
+                    txtAltaTrabajadorEmail.Clear()
+                    txtAltaTrabajadorTel.Clear()
+                    txtAltaTrabajadorDNI.Clear()
+                    txtAltaTrabajadorContraseya.Clear()
+                    DateAltaTrabajadorNacimiento.ResetText()
+                Else
+                    MsgBox("Ha habido un error al insertar el usuario y la cotraseña")
+                End If
             Else
                 MsgBox("Ha ocurrido un error, compruebe los datos introducidos")
             End If
@@ -1284,8 +1309,6 @@ Public Class GestionEmpresa
         txtAltaTrabajadorApellido.Clear()
         txtAltaTrabajadorEmail.Clear()
         txtAltaTrabajadorTel.Clear()
-        txtAltaTrabajadorSexo.Clear()
-        txtAltaTrabajadorTipo.Clear()
         txtAltaTrabajadorDNI.Clear()
         DateAltaTrabajadorNacimiento.ResetText()
     End Sub
@@ -1546,6 +1569,7 @@ Public Class GestionEmpresa
         ContratacionesEnCurso.Visible = False
         CancelarContratacion.Visible = False
         MenuFabrica.Visible = False
+        CBAltaProveedorTipo.SelectedIndex = 0
     End Sub
 
     Private Sub btnModificarProveedor_Click(sender As Object, e As EventArgs) Handles btnModificarProveedor.Click
@@ -1592,6 +1616,14 @@ Public Class GestionEmpresa
         ContratacionesEnCurso.Visible = False
         CancelarContratacion.Visible = False
         MenuFabrica.Visible = False
+        txtConsultarProveedorNombreEmpresa.ReadOnly = True
+        txtConsultarProveedorNombre.ReadOnly = True
+        txtConsultarProveedorApellido.ReadOnly = True
+        txtConsultarProveedorCIF.ReadOnly = True
+        txtConsultarProveedorTipo.ReadOnly = True
+        txtConsultarProveedorDireccion.ReadOnly = True
+        txtConsultarProveedorTelefono.ReadOnly = True
+        txtConsultarProveedorEmail.ReadOnly = True
     End Sub
 
     Private Sub btnBajaProveedor_Click(sender As Object, e As EventArgs) Handles btnBajaProveedor.Click
@@ -1645,15 +1677,13 @@ Public Class GestionEmpresa
         txtAltaProveedorDireccion.Clear()
         txtAltaProveedorEmail.Clear()
         txtAltaProveedorTelefono.Clear()
-        txtAltaProveedorTipo.Clear()
-        txtAltaProveedorTipo.Clear()
     End Sub
 
     Private Sub btnAltaProveedorAceptar_Click(sender As Object, e As EventArgs) Handles btnAltaProveedorAceptar.Click
-        If txtAltaProveedorNombreEmpresa.Text.Trim.Equals("") Or txtAltaProveedorNombre.Text.Trim.Equals("") Or txtAltaProveedorApellido.Text.Trim.Equals("") Or txtAltaProveedorCIF.Text.Trim.Equals("") Or txtAltaProveedorTipo.Text.Trim.Equals("") Or txtAltaProveedorDireccion.Text.Trim.Equals("") Or txtAltaProveedorTelefono.Text.Trim.Equals("") Or txtAltaProveedorEmail.Text.Trim.Equals("") Then
+        If txtAltaProveedorNombreEmpresa.Text.Trim.Equals("") Or txtAltaProveedorNombre.Text.Trim.Equals("") Or txtAltaProveedorApellido.Text.Trim.Equals("") Or txtAltaProveedorCIF.Text.Trim.Equals("") Or txtAltaProveedorDireccion.Text.Trim.Equals("") Or txtAltaProveedorTelefono.Text.Trim.Equals("") Or txtAltaProveedorEmail.Text.Trim.Equals("") Then
             MsgBox("Error, hay algún campo vacío.")
         Else
-            If InsertarProveedor(txtAltaProveedorNombreEmpresa.Text.Trim, txtAltaProveedorNombre.Text.Trim, txtAltaProveedorApellido.Text.Trim, txtAltaProveedorCIF.Text.Trim, txtAltaProveedorTipo.Text.Trim, txtAltaProveedorDireccion.Text.Trim, txtAltaProveedorTelefono.Text.Trim, txtAltaProveedorEmail.Text.Trim) = True Then
+            If InsertarProveedor(txtAltaProveedorNombreEmpresa.Text.Trim, txtAltaProveedorNombre.Text.Trim, txtAltaProveedorApellido.Text.Trim, txtAltaProveedorCIF.Text.Trim, CBAltaProveedorTipo.SelectedIndex, txtAltaProveedorDireccion.Text.Trim, txtAltaProveedorTelefono.Text.Trim, txtAltaProveedorEmail.Text.Trim) = True Then
                 MsgBox("El proveedor se ha añadido correctamente!")
                 Login.Visible = False
                 Menu.Visible = False
@@ -1682,8 +1712,6 @@ Public Class GestionEmpresa
                 txtAltaProveedorDireccion.Clear()
                 txtAltaProveedorEmail.Clear()
                 txtAltaProveedorTelefono.Clear()
-                txtAltaProveedorTipo.Clear()
-                txtAltaProveedorTipo.Clear()
             Else
                 MsgBox("Ha habido algún error, contacte con el administrador.")
             End If
@@ -2734,6 +2762,14 @@ Public Class GestionEmpresa
     End Sub
 
     Private Sub btnConsultarProveedorBuscar_Click(sender As Object, e As EventArgs) Handles btnConsultarProveedorBuscar.Click
+        txtConsultarProveedorNombreEmpresa.ReadOnly = True
+        txtConsultarProveedorNombre.ReadOnly = True
+        txtConsultarProveedorApellido.ReadOnly = True
+        txtConsultarProveedorCIF.ReadOnly = True
+        txtConsultarProveedorTipo.ReadOnly = True
+        txtConsultarProveedorDireccion.ReadOnly = True
+        txtConsultarProveedorTelefono.ReadOnly = True
+        txtConsultarProveedorEmail.ReadOnly = True
         Dim proveedor As ArrayList
         Dim tipoproveedor = ""
         If BuscarDatosProveedor(txtConsultarProveedorCIFBusqueda.Text.Trim).Equals("") Then
@@ -2768,5 +2804,9 @@ Public Class GestionEmpresa
             txtConsultarProveedorEmail.Text = proveedor(6).ToString
             txtConsultarProveedorTipo.Text = tipoproveedor
         End If
+    End Sub
+
+    Private Sub btnRecuperarAcc_Click(sender As Object, e As EventArgs) Handles btnRecuperarAcc.Click
+        MsgBox("En caso de haber olvidado la contraseña, contecte con el administrador")
     End Sub
 End Class

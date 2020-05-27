@@ -1275,6 +1275,8 @@ Public Class GestionEmpresa
                     txtAltaTrabajadorDNI.Clear()
                     txtAltaTrabajadorContraseya.Clear()
                     DateAltaTrabajadorNacimiento.ResetText()
+                    txtAltaTrabajadorUsuario.Clear()
+                    txtAltaTrabajadorContraseya.Clear()
                 Else
                     MsgBox("Ha habido un error al insertar el usuario y la cotraseña")
                 End If
@@ -1311,6 +1313,8 @@ Public Class GestionEmpresa
         txtAltaTrabajadorTel.Clear()
         txtAltaTrabajadorDNI.Clear()
         DateAltaTrabajadorNacimiento.ResetText()
+        txtAltaTrabajadorUsuario.Clear()
+        txtAltaTrabajadorContraseya.Clear()
     End Sub
 
     Private Sub btnModificacionTrabajadorCancelar_Click(sender As Object, e As EventArgs) Handles btnModificacionTrabajadorCancelar.Click
@@ -1479,39 +1483,47 @@ Public Class GestionEmpresa
         If txtMenuModificarTrabajadorNombre.Text.Trim.Equals("") Or txtMenuModificarTrabajadorApellido.Text.Trim.Equals("") Or txtMenuModificarTrabajadorTipo.Text.Trim.Equals("") Or txtMenuModificarTrabajadorDNI.Text.Trim.Equals("") Or txtMenuModificarTrabajadorEdad.Text.Trim.Equals("") Or txtMenuModificarTrabajadorAnyosTrabajados.Text.Trim.Equals("") Or txtMenuModificarTrabajadorTel.Text.Trim.Equals("") Or txtMenuModificarTrabajadorEmail.Text.Trim.Equals("") Or txtMenuModificarTrabajadorSexo.Text.Trim.Equals("") Then
             MsgBox("Error, hay algun campo vacío. Compruebe todos los campos por favor.")
         Else
-            If modificarTrabajadores(idtrabajador, tipo, txtMenuModificarTrabajadorNombre.Text.Trim, txtMenuModificarTrabajadorApellido.Text.Trim, txtMenuModificarTrabajadorDNI.Text.Trim, txtMenuModificarTrabajadorEmail.Text.Trim, txtMenuModificarTrabajadorTel.Text.Trim, txtMenuModificarTrabajadorEdad.Text.Trim, txtMenuModificarTrabajadorAnyosTrabajados.Text.Trim, txtMenuModificarTrabajadorSexo.Text.Trim) = True Then
-                MsgBox("¡El trabajador ha sido modificado correctamente!")
-                Login.Visible = False
-                Menu.Visible = False
-                Trabajador.Visible = True
-                MenuModificarTrabajador.Visible = False
-                DarAltaTrabajador.Visible = False
-                InformacionTrabajador.Visible = False
-                ModificarTrabajador.Visible = False
-                BajaTrabajador.Visible = False
-                MenuProveedores.Visible = False
-                AltaProveedor.Visible = False
-                BusquedaModificarProveedor.Visible = False
-                ModificarProveedor.Visible = False
-                ConsultarProveedor.Visible = False
-                BajaProveedor.Visible = False
-                MenuClientes.Visible = False
-                ClientesAtendidos.Visible = False
-                NuevaContratacion.Visible = False
-                ContratacionesEnCurso.Visible = False
-                CancelarContratacion.Visible = False
-                MenuFabrica.Visible = False
-                txtMenuModificarTrabajadorNombre.Clear()
-                txtMenuModificarTrabajadorApellido.Clear()
-                txtMenuModificarTrabajadorTipo.Clear()
-                txtMenuModificarTrabajadorDNI.Clear()
-                txtMenuModificarTrabajadorEdad.Clear()
-                txtMenuModificarTrabajadorAnyosTrabajados.Clear()
-                txtMenuModificarTrabajadorTel.Clear()
-                txtMenuModificarTrabajadorEmail.Clear()
-                txtMenuModificarTrabajadorSexo.Clear()
+            If txtMenuModificarTrabajadorTipo.Text.ToLower.Equals("fijo") Or txtMenuModificarTrabajadorTipo.Text.ToLower.Equals("temporal") Or txtMenuModificarTrabajadorTipo.Text.ToLower.Equals("en practicas") Then
+                If txtMenuModificarTrabajadorSexo.Text.ToLower.Equals("m") Or txtMenuModificarTrabajadorSexo.Text.ToLower.Equals("f") Then
+                    If modificarTrabajadores(idtrabajador, tipo, txtMenuModificarTrabajadorNombre.Text.Trim, txtMenuModificarTrabajadorApellido.Text.Trim, txtMenuModificarTrabajadorDNI.Text.Trim, txtMenuModificarTrabajadorEmail.Text.Trim, txtMenuModificarTrabajadorTel.Text.Trim, txtMenuModificarTrabajadorEdad.Text.Trim, txtMenuModificarTrabajadorAnyosTrabajados.Text.Trim, txtMenuModificarTrabajadorSexo.Text.Trim) = True Then
+                        MsgBox("¡El trabajador ha sido modificado correctamente!")
+                        Login.Visible = False
+                        Menu.Visible = False
+                        Trabajador.Visible = True
+                        MenuModificarTrabajador.Visible = False
+                        DarAltaTrabajador.Visible = False
+                        InformacionTrabajador.Visible = False
+                        ModificarTrabajador.Visible = False
+                        BajaTrabajador.Visible = False
+                        MenuProveedores.Visible = False
+                        AltaProveedor.Visible = False
+                        BusquedaModificarProveedor.Visible = False
+                        ModificarProveedor.Visible = False
+                        ConsultarProveedor.Visible = False
+                        BajaProveedor.Visible = False
+                        MenuClientes.Visible = False
+                        ClientesAtendidos.Visible = False
+                        NuevaContratacion.Visible = False
+                        ContratacionesEnCurso.Visible = False
+                        CancelarContratacion.Visible = False
+                        MenuFabrica.Visible = False
+                        txtMenuModificarTrabajadorNombre.Clear()
+                        txtMenuModificarTrabajadorApellido.Clear()
+                        txtMenuModificarTrabajadorTipo.Clear()
+                        txtMenuModificarTrabajadorDNI.Clear()
+                        txtMenuModificarTrabajadorEdad.Clear()
+                        txtMenuModificarTrabajadorAnyosTrabajados.Clear()
+                        txtMenuModificarTrabajadorTel.Clear()
+                        txtMenuModificarTrabajadorEmail.Clear()
+                        txtMenuModificarTrabajadorSexo.Clear()
+                    Else
+                        MsgBox("Error, algo ha salido mal, compruebe los datos modificados.")
+                    End If
+                Else
+                    MsgBox("Error, el sexo se indica mediante m (masculino) o f (femenino)")
+                End If
             Else
-                MsgBox("Error, algo ha salido mal, compruebe los datos modificados.")
+                MsgBox("Ese tipo de trabajador no existe. Las opciones son: Fijo, Temporal o En Practicas")
             End If
         End If
     End Sub
@@ -1844,38 +1856,42 @@ Public Class GestionEmpresa
         If txtModificarProveedorNombreEmpresa.Text.Trim.Equals("") Or txtModificarProveedorNombre.Text.Trim.Equals("") Or txtModificarProveedorApellido.Text.Trim.Equals("") Or txtModificarProveedorCIF.Text.Trim.Equals("") Or txtModificarProveedorDireccion.Text.Trim.Equals("") Or txtModificarProveedorTelefono.Text.Trim.Equals("") Or txtModificarProveedorEmail.Text.Trim.Equals("") Or txtModificarProveedorTipo.Text.Trim.Equals("") Then
             MsgBox("Error, hay algún campo vacío")
         Else
-            If modificarProveedores(idproveedor, tipoproveedor, txtModificarProveedorNombreEmpresa.Text.Trim, txtModificarProveedorNombre.Text.Trim, txtModificarProveedorApellido.Text.Trim, txtModificarProveedorCIF.Text.Trim, txtModificarProveedorEmail.Text.Trim, txtModificarProveedorTelefono.Text.Trim, txtModificarProveedorDireccion.Text.Trim) = True Then
-                MsgBox("Se han modificado los datos correctamente")
-                Login.Visible = False
-                Menu.Visible = False
-                Trabajador.Visible = False
-                MenuModificarTrabajador.Visible = False
-                DarAltaTrabajador.Visible = False
-                InformacionTrabajador.Visible = False
-                ModificarTrabajador.Visible = False
-                BajaTrabajador.Visible = False
-                MenuProveedores.Visible = True
-                AltaProveedor.Visible = False
-                BusquedaModificarProveedor.Visible = False
-                ModificarProveedor.Visible = False
-                ConsultarProveedor.Visible = False
-                BajaProveedor.Visible = False
-                MenuClientes.Visible = False
-                ClientesAtendidos.Visible = False
-                NuevaContratacion.Visible = False
-                ContratacionesEnCurso.Visible = False
-                CancelarContratacion.Visible = False
-                MenuFabrica.Visible = False
-                txtModificarProveedorNombreEmpresa.Clear()
-                txtModificarProveedorNombre.Clear()
-                txtModificarProveedorApellido.Clear()
-                txtModificarProveedorCIF.Clear()
-                txtModificarProveedorDireccion.Clear()
-                txtModificarProveedorTelefono.Clear()
-                txtModificarProveedorEmail.Clear()
-                txtModificarProveedorTipo.Clear()
+            If txtModificarProveedorTipo.Text.ToLower.Equals("limpieza") Or txtModificarProveedorTipo.Text.ToLower.Equals("electricidad") Or txtModificarProveedorTipo.Text.ToLower.Equals("carpinteria") Or txtModificarProveedorTipo.Text.ToLower.Equals("albañileria") Or txtModificarProveedorTipo.Text.ToLower.Equals("fontaneria") Then
+                If modificarProveedores(idproveedor, tipoproveedor, txtModificarProveedorNombreEmpresa.Text.Trim, txtModificarProveedorNombre.Text.Trim, txtModificarProveedorApellido.Text.Trim, txtModificarProveedorCIF.Text.Trim, txtModificarProveedorEmail.Text.Trim, txtModificarProveedorTelefono.Text.Trim, txtModificarProveedorDireccion.Text.Trim) = True Then
+                    MsgBox("Se han modificado los datos correctamente")
+                    Login.Visible = False
+                    Menu.Visible = False
+                    Trabajador.Visible = False
+                    MenuModificarTrabajador.Visible = False
+                    DarAltaTrabajador.Visible = False
+                    InformacionTrabajador.Visible = False
+                    ModificarTrabajador.Visible = False
+                    BajaTrabajador.Visible = False
+                    MenuProveedores.Visible = True
+                    AltaProveedor.Visible = False
+                    BusquedaModificarProveedor.Visible = False
+                    ModificarProveedor.Visible = False
+                    ConsultarProveedor.Visible = False
+                    BajaProveedor.Visible = False
+                    MenuClientes.Visible = False
+                    ClientesAtendidos.Visible = False
+                    NuevaContratacion.Visible = False
+                    ContratacionesEnCurso.Visible = False
+                    CancelarContratacion.Visible = False
+                    MenuFabrica.Visible = False
+                    txtModificarProveedorNombreEmpresa.Clear()
+                    txtModificarProveedorNombre.Clear()
+                    txtModificarProveedorApellido.Clear()
+                    txtModificarProveedorCIF.Clear()
+                    txtModificarProveedorDireccion.Clear()
+                    txtModificarProveedorTelefono.Clear()
+                    txtModificarProveedorEmail.Clear()
+                    txtModificarProveedorTipo.Clear()
+                Else
+                    MsgBox("Ha ocurrido un error, comuniquese con el administrador.")
+                End If
             Else
-                MsgBox("Ha ocurrido un error, comuniquese con el administrador.")
+                MsgBox("El tipo de proveedor solo puede ser: limpieza, electricidad, carpinteria, albañileria, fontaneria")
             End If
         End If
     End Sub
@@ -2047,6 +2063,15 @@ Public Class GestionEmpresa
         ContratacionesEnCurso.Visible = False
         CancelarContratacion.Visible = False
         MenuFabrica.Visible = False
+        txtClientesAtendidosNombre.ReadOnly = True
+        txtClientesAtendidosApellidos.ReadOnly = True
+        txtClientesAtendidosDNI.ReadOnly = True
+        txtClientesAtendidosDireccion.ReadOnly = True
+        txtClientesAtendidosTelefono.ReadOnly = True
+        txtClientesAtendidosEmail.ReadOnly = True
+        txtClientesAtendidosTipoServicio.ReadOnly = True
+        txtClientesAtendidosCoste.ReadOnly = True
+        txtClientesAtendidosFecha.ReadOnly = True
     End Sub
 
     Private Sub btnMenuClientesNContratacion_Click(sender As Object, e As EventArgs) Handles btnMenuClientesNContratacion.Click
@@ -2093,6 +2118,15 @@ Public Class GestionEmpresa
         ContratacionesEnCurso.Visible = True
         CancelarContratacion.Visible = False
         MenuFabrica.Visible = False
+        txtConsultaContratacionesNombre.ReadOnly = True
+        txtConsultaContratacionesApellidos.ReadOnly = True
+        txtConsultaContratacionesDNI.ReadOnly = True
+        txtConsultaContratacionesDireccion.ReadOnly = True
+        txtConsultaContratacionesTelefono.ReadOnly = True
+        txtConsultaContratacionesEmail.ReadOnly = True
+        txtConsultaContratacionesTipoServicio.ReadOnly = True
+        txtConsultaContratacionesCoste.ReadOnly = True
+        txtConsultaContratacionesFecha.ReadOnly = True
     End Sub
 
     Private Sub btnMenuClientesFContratacion_Click(sender As Object, e As EventArgs) Handles btnMenuClientesFContratacion.Click
@@ -2231,26 +2265,30 @@ Public Class GestionEmpresa
                         If idcontratacion = -1 Then
                             MsgBox("Ha habido un error al insertar la tabla contratación")
                         Else
-                            If txtNuevaContratacionTipoServicio.Text.ToLower.Trim.Equals("basico") Then
-                                tipoServicio = 1
-                            ElseIf txtNuevaContratacionTipoServicio.Text.ToLower.Trim.Equals("urgente") Then
-                                tipoServicio = 2
-                            ElseIf txtNuevaContratacionTipoServicio.Text.ToLower.Trim.Equals("especial") Then
-                                tipoServicio = 3
-                            End If
-                            nombreTrabajador = CBNuevaContratacionTrabajador.SelectedItem
-                            idtrabajadores = BuscarIdTrabajador(nombreTrabajador)
-                            If InsertarServicio(tipoServicio, idtrabajadores) = True Then
-                                idServicios = BuscarIdServicio(tipoServicio, idtrabajadores)
-                                MsgBox("ID servicios: " & idServicios)
-                                If idServicios <> 0 Then
-                                    If InsertarServicioXContratacion(idServicios, idcontratacion) = True Then
-                                        MsgBox("Se ha añadido la contratacion correctamente.")
+                            If txtNuevaContratacionTipoServicio.Text.ToLower.Equals("basico") Or txtNuevaContratacionTipoServicio.Text.ToLower.Equals("urgente") Or txtNuevaContratacionTipoServicio.Text.ToLower.Equals("especial") Then
+                                If txtNuevaContratacionTipoServicio.Text.ToLower.Trim.Equals("basico") Then
+                                    tipoServicio = 1
+                                ElseIf txtNuevaContratacionTipoServicio.Text.ToLower.Trim.Equals("urgente") Then
+                                    tipoServicio = 2
+                                ElseIf txtNuevaContratacionTipoServicio.Text.ToLower.Trim.Equals("especial") Then
+                                    tipoServicio = 3
+                                End If
+                                nombreTrabajador = CBNuevaContratacionTrabajador.SelectedItem
+                                idtrabajadores = BuscarIdTrabajador(nombreTrabajador)
+                                If InsertarServicio(tipoServicio, idtrabajadores) = True Then
+                                    idServicios = BuscarIdServicio(tipoServicio, idtrabajadores)
+                                    MsgBox("ID servicios: " & idServicios)
+                                    If idServicios <> 0 Then
+                                        If InsertarServicioXContratacion(idServicios, idcontratacion) = True Then
+                                            MsgBox("Se ha añadido la contratacion correctamente.")
+                                        End If
                                     End If
                                 End If
+                            Else
+                                MsgBox("El tipo de servicio solo puede ser: basico, urgente o especial")
                             End If
                         End If
-                    End If
+                        End If
                 End If
 
             End If
@@ -2483,11 +2521,26 @@ Public Class GestionEmpresa
         ContratacionesEnCurso.Visible = False
         CancelarContratacion.Visible = False
         MenuFabrica.Visible = True
+        txtMenuFabricaEncargado.ReadOnly = True
+        txtMenuFabricaMaterial.ReadOnly = True
+        txtMenuFabricaProduccion.ReadOnly = True
+        txtMenuFabricaDireccion.ReadOnly = True
+        txtMenuFabricaTelefono.ReadOnly = True
+        txtMenuFabricaEmail.ReadOnly = True
     End Sub
 
     Private Sub btnClientesAtendidosBuscar_Click(sender As Object, e As EventArgs) Handles btnClientesAtendidosBuscar.Click
         Dim datosCliente As ArrayList
         Dim datosClienteV2 As ArrayList
+        txtClientesAtendidosNombre.ReadOnly = True
+        txtClientesAtendidosApellidos.ReadOnly = True
+        txtClientesAtendidosDNI.ReadOnly = True
+        txtClientesAtendidosDireccion.ReadOnly = True
+        txtClientesAtendidosTelefono.ReadOnly = True
+        txtClientesAtendidosEmail.ReadOnly = True
+        txtClientesAtendidosTipoServicio.ReadOnly = True
+        txtClientesAtendidosCoste.ReadOnly = True
+        txtClientesAtendidosFecha.ReadOnly = True
         If BuscarCliente(txtClientesAtendidosBusqueda.Text.Trim).Equals("") Then
             MsgBox("Error, no hay ningún cliente con dicho DNI.")
         Else
@@ -2517,6 +2570,15 @@ Public Class GestionEmpresa
     Private Sub btnConsultaContratacionesBusqueda_Click(sender As Object, e As EventArgs) Handles btnConsultaContratacionesBusqueda.Click
         Dim cliente As ArrayList
         Dim clientev2 As ArrayList
+        txtConsultaContratacionesNombre.ReadOnly = True
+        txtConsultaContratacionesApellidos.ReadOnly = True
+        txtConsultaContratacionesDNI.ReadOnly = True
+        txtConsultaContratacionesDireccion.ReadOnly = True
+        txtConsultaContratacionesTelefono.ReadOnly = True
+        txtConsultaContratacionesEmail.ReadOnly = True
+        txtConsultaContratacionesTipoServicio.ReadOnly = True
+        txtConsultaContratacionesCoste.ReadOnly = True
+        txtConsultaContratacionesFecha.ReadOnly = True
         If txtConsultaContratacionesBusqueda.Text.Trim.Equals("") Then
             MsgBox("Error, no se ha introducido el DNI del cliente.")
         Else
@@ -2546,6 +2608,12 @@ Public Class GestionEmpresa
 
     Private Sub btnMenuFabricaCIF_Click(sender As Object, e As EventArgs) Handles btnMenuFabricaCIF.Click
         Dim datosfabricas As ArrayList
+        txtMenuFabricaEncargado.ReadOnly = True
+        txtMenuFabricaMaterial.ReadOnly = True
+        txtMenuFabricaProduccion.ReadOnly = True
+        txtMenuFabricaDireccion.ReadOnly = True
+        txtMenuFabricaTelefono.ReadOnly = True
+        txtMenuFabricaEmail.ReadOnly = True
         If txtMenuFabricaCIF.Text.Trim.Equals("") Then
             MsgBox("Eror, el campo está vacio")
         Else
